@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/startFragment">
+
+    <fragment
+        android:id="@+id/startFragment"
+        android:name="com.touchin.prosto.feature.start.StartFragment"
+        tools:layout="@layout/fragment_start">
+
+        <action
+            android:id="@+id/action_startFragment_to_offerListFragment"
+            app:destination="@id/offerListFragment" />
+        <action
+            android:id="@+id/action_startFragment_to_supportFragment"
+            app:destination="@id/supportFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/supportFragment"
+        android:name="com.touchin.prosto.feature.support.SupportFragment"
+        tools:layout="@layout/fragment_support">
+
+    </fragment>
+
+    <fragment
+        android:id="@+id/offerListFragment"
+        android:name="com.touchin.prosto.feature.list.OfferListFragment"
+        tools:layout="@layout/fragment_offer_list">
+
+        <action
+            android:id="@+id/action_offerListFragment_to_offerBottom"
+            app:destination="@id/offerBottom" />
+    </fragment>
+
+    <dialog
+        android:id="@+id/offerBottom"
+        android:name="com.touchin.prosto.feature.detail.OfferDetailFragment"
+        tools:layout="@layout/fragment_offer_detail">
+
+        <argument
+            android:name="offer"
+            app:argType="com.touchin.prosto.feature.model.OfferUi" />
+
+    </dialog>
+
+</navigation>

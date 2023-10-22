@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<merge
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:parentTag="androidx.constraintlayout.widget.ConstraintLayout">
+
+    <ImageView
+        android:id="@+id/favorite_button"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:background="@drawable/item_ripple_oval_8"
+        android:padding="12dp"
+        android:src="@drawable/ic_favorite_unchecked"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@id/company_logo" />
+
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintTop_toTopOf="@id/company_logo"
+        app:layout_constraintBottom_toBottomOf="@id/company_logo"
+        app:layout_constraintStart_toEndOf="@id/company_logo"
+        app:layout_constraintEnd_toStartOf="@+id/favorite_button"
+        android:layout_marginStart="12dp">
+
+        <TextView
+            android:id="@+id/companyName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:ellipsize="end"
+            android:lineSpacingExtra="3sp"
+            android:maxLines="2"
+            android:textAppearance="@style/Caption14"
+            tools:text="Лаборатория Касперского" />
+
+        <TextView
+            android:id="@+id/companyShortDescription"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="16dp"
+            android:layout_marginTop="4dp"
+            android:ellipsize="end"
+            android:maxLines="3"
+            android:textAppearance="@style/Caption12"
+            tools:text="Скидка 10%" />
+    </LinearLayout>
+
+    <com.google.android.material.imageview.ShapeableImageView
+        android:id="@+id/company_logo"
+        android:layout_width="56dp"
+        android:layout_height="56dp"
+        android:padding="1dp"
+        android:layout_marginTop="16dp"
+        app:layout_constraintTop_toTopOf="parent"
+        app:shapeAppearance="@style/RoundedImageCorner16dp"
+        app:strokeColor="@color/colorAccent"
+        android:background="@color/white"
+        app:strokeWidth="1dp" />
+
+</merge>
