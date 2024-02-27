@@ -7,6 +7,7 @@ import com.anadolstudio.core.viewmodel.lce.lceFlow
 import com.anadolstudio.core.viewmodel.lce.mapLceContent
 import com.anadolstudio.core.viewmodel.lce.onEachContent
 import com.anadolstudio.core.viewmodel.lce.onEachError
+import com.touchin.data.repository.common.PreferencesStorage
 import com.touchin.domain.repository.offers.OffersRepository
 import com.touchin.prosto.R
 import com.touchin.prosto.base.viewmodel.BaseContentViewModel
@@ -20,7 +21,8 @@ import javax.inject.Inject
 
 class OfferListViewModel @Inject constructor(
     private val context: Context,
-    private val offersRepository: OffersRepository
+    private val offersRepository: OffersRepository,
+    private val storage: PreferencesStorage,
 ) : BaseContentViewModel<OfferListState>(
     OfferListState()
 ), OfferListController {
@@ -31,7 +33,10 @@ class OfferListViewModel @Inject constructor(
 
     private fun loadOffers() {
         lceFlow { emit(offersRepository.getOfferList()) }
-            .mapLceContent { offers -> offers.map { it.toUi(isFavorite = false) } }
+            .mapLceContent { offers ->
+                val favoriteSet = storage.favoriteSet
+                offers.map { it.toUi(isFavorite = favoriteSet.contains(it.id)) }
+            }
             .onEach { updateState { copy(loadingState = it) } }
             .onEachContent { offers -> updateState { copy(offersList = offers) } }
             .onEachError { showError(it) }
@@ -45,7 +50,20 @@ class OfferListViewModel @Inject constructor(
         args = bundleOf(context.getString(R.string.navigation_offer) to offerUi)
     )
 
-    override fun onFavoriteChecked(offerUi: OfferUi) = showTodo()
+    override fun onFavoriteChecked(offerUi: OfferUi) {
+        val isFavorite = !offerUi.isFavorite
+
+        if (isFavorite) {
+            storage.favoriteSet += offerUi.id
+        } else {
+            storage.favoriteSet -= offerUi.id
+        }
+
+        val newOfferList = state.offersList.map {
+            if (it.id == offerUi.id) it.copy(isFavorite = isFavorite) else it
+        }
+        updateState { copy(offersList = newOfferList) }
+    }
 
     override fun onFavoriteFilterClicked() = showTodo()
 }
