@@ -33,9 +33,9 @@
             android:layout_height="wrap_content"
             android:ellipsize="end"
             android:lineSpacingExtra="3sp"
-            android:maxLines="2"
+            android:maxLines="1"
             android:textAppearance="@style/Caption14"
-            tools:text="Лаборатория Касперского" />
+            tools:text="This is our company Лаборатория Касперского" />
 
         <TextView
             android:id="@+id/companyShortDescription"
