@@ -15,6 +15,9 @@ class PreferencesStorage(private val preferences: Preferences) {
         set(value) = preferences.modify { putInt(NIGHT_MODE, value) }
         get() = preferences.getInt(NIGHT_MODE, AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM)
 
+
+
+
     private inline fun Preferences.modify(
         commit: Boolean = false,
         action: PreferencesEditor.() -> Unit
