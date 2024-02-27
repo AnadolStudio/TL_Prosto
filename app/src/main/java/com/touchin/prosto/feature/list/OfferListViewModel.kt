@@ -38,7 +38,9 @@ class OfferListViewModel @Inject constructor(
                 offers.map { it.toUi(isFavorite = favoriteSet.contains(it.id)) }
             }
             .onEach { updateState { copy(loadingState = it) } }
-            .onEachContent { offers -> updateState { copy(offersList = offers) } }
+            .onEachContent { offers ->
+                updateState { copy(offersList = offers, isFilterButtonVisible = storage.favoriteSet.isNotEmpty()) }
+            }
             .onEachError { showError(it) }
             .launchIn(viewModelScope)
     }
@@ -62,8 +64,14 @@ class OfferListViewModel @Inject constructor(
         val newOfferList = state.offersList.map {
             if (it.id == offerUi.id) it.copy(isFavorite = isFavorite) else it
         }
-        updateState { copy(offersList = newOfferList) }
+        updateState {
+            copy(
+                offersList = newOfferList,
+                isFilterButtonVisible = storage.favoriteSet.isNotEmpty(),
+                isFilterByFavorite = isFilterByFavorite && storage.favoriteSet.isNotEmpty()
+            )
+        }
     }
 
-    override fun onFavoriteFilterClicked() = showTodo()
+    override fun onFavoriteFilterClicked() = updateState { copy(isFilterByFavorite = !isFilterByFavorite) }
 }

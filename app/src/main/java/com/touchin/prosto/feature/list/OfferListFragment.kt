@@ -1,6 +1,8 @@
 package com.touchin.prosto.feature.list
 
+import androidx.core.view.isVisible
 import androidx.fragment.app.viewModels
+import com.anadolstudio.core.util.common_extention.getCompatDrawable
 import com.anadolstudio.core.viewbinding.viewBinding
 import com.touchin.prosto.R
 import com.touchin.prosto.base.fragment.BaseContentFragment
@@ -48,7 +50,10 @@ class OfferListFragment : BaseContentFragment<OfferListState, OfferListViewModel
     }
 
     override fun render(state: OfferListState, controller: OfferListController) {
-        offersSection.postUpdate(binding.recycler, state.offersList.map { createOfferHolder(it) })
+        val favouriteIcon = if (state.isFilterByFavorite) R.drawable.ic_favorite_checked else R.drawable.ic_favorite_unchecked
+        binding.favoriteButton.setDrawable(requireContext().getCompatDrawable(favouriteIcon))
+        binding.favoriteButton.isVisible = state.isFilterButtonVisible
+        offersSection.postUpdate(binding.recycler, state.filteredOffersList.map { createOfferHolder(it) })
     }
 
     protected fun createOfferHolder(offer: OfferUi): BigOfferCardHolder = BigOfferCardHolder(
