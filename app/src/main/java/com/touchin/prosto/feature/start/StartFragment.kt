@@ -18,6 +18,5 @@ class StartFragment : BaseActionFragment<StartViewModel, StartController>(R.layo
         binding.offerButton.scaleAnimationOnClick(action = controller::onOffersClicked)
         binding.supportButton.scaleAnimationOnClick(action = controller::onSupportClicked)
         binding.nightBtn.scaleAnimationOnClick(action = controller::onNightModeClicked)
-        binding.nightBtn.makeGone() // TODO
     }
 }

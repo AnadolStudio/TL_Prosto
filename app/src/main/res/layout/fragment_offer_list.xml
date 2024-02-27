@@ -25,6 +25,7 @@
         android:fitsSystemWindows="true"
         app:title="@string/common_offers"
         android:elevation="4dp"
+        app:tint="@color/colorAccent"
         app:back_icon="@drawable/ic_arrow_back"
         app:layout_constraintTop_toBottomOf="parent"
         app:layout_constraintTop_toTopOf="parent" >

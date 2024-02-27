@@ -12,10 +12,7 @@ class SingleViewModel @Inject constructor(
     init {
         nightModeRepository.observeNightModeChanges()
             .smartSubscribe(
-                onSuccess = {
-                    showEvent(SingleEvents.ChangeNightModeEvent(it))
-                    showTodo() // TODO удалить, когда будет настроена темная тема
-                },
+                onSuccess = {showEvent(SingleEvents.ChangeNightModeEvent(it)) },
                 onError = this::showError
             )
             .disposeOnCleared()
