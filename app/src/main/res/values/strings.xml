@@ -4,7 +4,10 @@
     <string name="common_offers">Акции</string>
     <string name="common_support">Обращение</string>
     <string name="common_email">Email</string>
+    <string name="common_subject">Тема</string>
+    <string name="common_textPisma">Тело письма</string>
     <string name="common_email_error">Некорректный email</string>
+    <string name="common_text_error">Некорректные символы</string>
     <string name="common_send">Отправить</string>
 
 

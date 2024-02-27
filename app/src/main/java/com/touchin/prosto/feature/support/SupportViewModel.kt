@@ -18,19 +18,30 @@ class SupportViewModel @Inject constructor(
 
         sendEmail(
             context = context,
-            subject = "subject", // TODO необходимо изменить в рамках задачи
+            subject = state.subjectText, // TODO необходимо изменить в рамках задачи
             email = state.emailText,
-            body = "body" // TODO необходимо изменить в рамках задачи
+            body = state.textPism // TODO необходимо изменить в рамках задачи
         )
     }
 
     override fun onEmailChanged(text: String) = updateState { copy(emailText = text, hasEmailError = false) }
+    override fun onSubject(text: String) = updateState { copy(subjectText = text, hasSubjectError = false) }
+    override fun onSubject1(text: String) = updateState { copy(textPism = text, hasBodyError = false) }
+
 
     private fun hasErrors(): Boolean {
+        val russianOnlyRegex = Regex("[а-яА-Я]+")
+        val hasSubjectError = !russianOnlyRegex.matches(state.subjectText)
+        updateState { copy(hasSubjectError = hasSubjectError) }
+
+        val hasBodyError = !russianOnlyRegex.matches(state.textPism)
+        updateState { copy(hasBodyError = hasBodyError) }
+
         val hasEmailError = !EmailUtil.EMAIL_PATTERN_REGEX.matches(state.emailText)
         updateState { copy(hasEmailError = hasEmailError) }
 
-        return listOf(hasEmailError).any { hasError -> hasError }
+        return listOf(hasEmailError, hasSubjectError, hasBodyError).any { hasError -> hasError }
+
     }
 
     override fun onBackClicked() = _navigationEvent.navigateUp()
