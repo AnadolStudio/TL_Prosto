@@ -31,3 +31,4 @@ object EmailUtil {
     val EMAIL_PATTERN_REGEX = "$LOCAL_PART_EMAIL$DOMAIN_PART_EMAIL$HOST_EMAIL".toRegex()
 
 }
+

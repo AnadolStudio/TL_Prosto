@@ -40,14 +40,29 @@
         android:id="@+id/email_input"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:textAppearance="@style/Caption16"
-        app:layout_constraintStart_toStartOf="@id/start_guideline"
-        app:layout_constraintEnd_toEndOf="@id/end_guideline"
-        app:layout_constraintTop_toBottomOf="@id/toolbar"
-        android:layout_marginTop="64dp"
+        android:layout_marginTop="8dp"
         android:hint="@string/common_email"
         android:inputType="textEmailAddress"
-        tools:text="text"/>
+        android:textAppearance="@style/Caption16"
+        app:layout_constraintEnd_toEndOf="@id/end_guideline"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@id/start_guideline"
+        app:layout_constraintTop_toBottomOf="@id/toolbar"
+        tools:text="Email" />
+
+    <EditText
+        android:id="@+id/text"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="68dp"
+        android:hint="@string/common_subject"
+        android:inputType="textEmailAddress"
+        android:textAppearance="@style/Caption16"
+        app:layout_constraintEnd_toEndOf="@id/end_guideline"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@id/start_guideline"
+        app:layout_constraintTop_toBottomOf="@id/toolbar"
+        tools:text="Тема" />
 
     <com.touchin.prosto.view.BaseButton
         android:id="@+id/sendButton"
@@ -56,7 +71,19 @@
         android:background="@drawable/gradient_base_button"
         android:paddingBottom="24dp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:text="@string/common_send" />
+        app:text="@string/common_send"
+        tools:layout_editor_absoluteX="0dp" />
+
+    <EditText
+        android:id="@+id/textPism"
+        android:layout_width="376dp"
+        android:layout_height="115dp"
+        android:layout_marginTop="132dp"
+        android:background="@color/disableForeground"
+        android:gravity="top"
+        android:hint="@string/common_textPisma"
+        app:layout_constraintStart_toStartOf="@id/start_guideline"
+        app:layout_constraintTop_toBottomOf="@id/toolbar" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
