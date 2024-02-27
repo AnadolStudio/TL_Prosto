@@ -7,6 +7,6 @@
     <string name="common_email_error">Некорректный email</string>
     <string name="common_send">Отправить</string>
 
-
+    <string name="inactive_action_message">Эта акция больше неактивна</string>
     <string name="navigation_offer">offer</string>
 </resources>

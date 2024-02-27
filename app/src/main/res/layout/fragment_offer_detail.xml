@@ -6,18 +6,20 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
-    <com.touchin.prosto.view.BottomTopLine
-        android:id="@+id/top_line"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:layout_constraintTop_toTopOf="parent"/>
+
 
     <LinearLayout
         android:id="@+id/info_container"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        app:layout_constraintTop_toBottomOf="@+id/top_line" >
+        app:layout_constraintTop_toTopOf="parent" >
+
+        <com.touchin.prosto.view.BottomTopLine
+            android:id="@+id/top_line"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toTopOf="parent"/>
 
         <TextView
             android:id="@+id/offerName"
@@ -35,8 +37,31 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"/>
 
-    </LinearLayout>
+        <com.touchin.prosto.view.OfferHeaderView
+            android:id="@+id/header_view"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@+id/main_info"/>
 
+    </LinearLayout>
+    <LinearLayout
+        android:id="@+id/description_container"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintTop_toBottomOf="@+id/info_container" >
+
+        <TextView
+            android:id="@+id/descriptionName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="16dp"
+            android:layout_marginTop="12dp"
+            android:lineSpacingExtra="3sp"
+            android:paddingBottom="4dp"
+            android:textAppearance="@style/Header24"
+            tools:text="Открывайте цифровой мир безопасно Test" />
+    </LinearLayout>
 <!-- TODO
     <com.touchin.prosto.view.OfferHeaderView
         android:id="@+id/header_view"
