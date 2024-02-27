@@ -1,6 +1,7 @@
 package com.touchin.prosto.feature.support
 
 import android.content.Context
+import com.touchin.data.repository.common.PreferencesStorage
 import com.touchin.prosto.base.viewmodel.BaseContentViewModel
 import com.touchin.prosto.base.viewmodel.navigateUp
 import com.touchin.prosto.util.EmailUtil
@@ -9,6 +10,7 @@ import javax.inject.Inject
 
 class SupportViewModel @Inject constructor(
     private val context: Context,
+    private val storage: PreferencesStorage,
 ) : BaseContentViewModel<SupportState>(
     initState = SupportState()
 ), SupportController {
@@ -17,8 +19,23 @@ class SupportViewModel @Inject constructor(
         val LATIN_REGEX = "[a-zA-z]".toRegex()
     }
 
+    init {
+        showEvent(
+            SupportEvents.DraftEvent(
+                emailText = storage.email,
+                subjectText = storage.subject,
+                bodyText = storage.body,
+            )
+        )
+    }
+
     override fun onSendClicked() {
         if (hasErrors()) return
+
+        updateState { copy(isEmailSend = true) }
+        storage.email = ""
+        storage.subject = ""
+        storage.body = ""
 
         sendEmail(
             context = context,
@@ -28,11 +45,14 @@ class SupportViewModel @Inject constructor(
         )
     }
 
-    override fun onEmailChanged(text: String) = updateState { copy(emailText = text, hasEmailError = false) }
+    override fun onEmailChanged(text: String) =
+        updateState { copy(emailText = text, hasEmailError = false, isEmailSend = false) }
 
-    override fun onSubjectChanged(text: String) = updateState { copy(subjectText = text, hasSubjectError = false) }
+    override fun onSubjectChanged(text: String) =
+        updateState { copy(subjectText = text, hasSubjectError = false, isEmailSend = false) }
 
-    override fun onBodyChanged(text: String) = updateState { copy(bodyText = text, hasBodyError = false) }
+    override fun onBodyChanged(text: String) =
+        updateState { copy(bodyText = text, hasBodyError = false, isEmailSend = false) }
 
     private fun hasErrors(): Boolean {
         val hasEmailError = !EmailUtil.EMAIL_PATTERN_REGEX.matches(state.emailText)
@@ -47,5 +67,15 @@ class SupportViewModel @Inject constructor(
     }
 
     override fun onBackClicked() = _navigationEvent.navigateUp()
+
+    override fun onCleared() {
+        if (!state.isEmailSend) {
+            storage.email = state.emailText
+            storage.subject = state.subjectText
+            storage.body = state.bodyText
+        }
+
+        super.onCleared()
+    }
 
 }

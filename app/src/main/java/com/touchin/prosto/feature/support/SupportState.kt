@@ -6,7 +6,8 @@ data class SupportState(
     val bodyText: String = "",
     val hasEmailError: Boolean = false,
     val hasSubjectError: Boolean = false,
-    val hasBodyError: Boolean = false
+    val hasBodyError: Boolean = false,
+    val isEmailSend: Boolean = false
 ) {
     val sendButtonEnable: Boolean
         get() = listOf(

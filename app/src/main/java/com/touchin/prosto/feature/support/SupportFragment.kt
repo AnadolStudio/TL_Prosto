@@ -5,6 +5,7 @@ import androidx.annotation.StringRes
 import androidx.fragment.app.viewModels
 import com.anadolstudio.core.view.animation.AnimateUtil.scaleAnimationOnClick
 import com.anadolstudio.core.viewbinding.viewBinding
+import com.anadolstudio.core.viewmodel.livedata.SingleEvent
 import com.touchin.prosto.R
 import com.touchin.prosto.base.fragment.BaseContentFragment
 import com.touchin.prosto.databinding.FragmentSupportBinding
@@ -23,6 +24,15 @@ class SupportFragment :
         binding.emailInput.afterTextChanged(controller::onEmailChanged)
         binding.subjectInput.afterTextChanged(controller::onSubjectChanged)
         binding.bodyInput.afterTextChanged(controller::onBodyChanged)
+    }
+
+    override fun handleEvent(event: SingleEvent) = when(event){
+        is SupportEvents.DraftEvent -> {
+            binding.emailInput.setText(event.emailText)
+            binding.subjectInput.setText(event.subjectText)
+            binding.bodyInput.setText(event.bodyText)
+        }
+        else -> super.handleEvent(event)
     }
 
     override fun render(state: SupportState, controller: SupportController) {
