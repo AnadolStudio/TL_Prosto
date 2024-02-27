@@ -1,5 +1,6 @@
 package com.touchin.prosto.feature.detail
 
+import android.graphics.Color
 import androidx.core.os.bundleOf
 import androidx.fragment.app.setFragmentResult
 import androidx.navigation.fragment.navArgs
@@ -10,6 +11,7 @@ import com.touchin.prosto.base.bottom.BaseContentBottom
 import com.touchin.prosto.databinding.FragmentOfferDetailBinding
 import com.touchin.prosto.di.viewmodel.assistedViewModel
 import com.touchin.prosto.util.GradientDrawable
+import com.touchin.prosto.util.isColorsLight
 
 @Suppress("TooManyFunctions")
 class OfferDetailFragment : BaseContentBottom<OfferDetailState, OfferDetailViewModel, OfferDetailController>(
@@ -40,11 +42,13 @@ class OfferDetailFragment : BaseContentBottom<OfferDetailState, OfferDetailViewM
 
     override fun render(state: OfferDetailState, controller: OfferDetailController) {
         val offerItem = state.offer
-
-        binding.mainInfo.initView(offerItem)
+        val isColorsLight = isColorsLight(offerItem.backgroundFirstColor, offerItem.backgroundSecondColor)
+        binding.mainInfo.initView(offerItem, isColorsLight)
         binding.offerName.text = offerItem.name
-        binding.headerView.initView(offerItem) { controller.onFavoriteChecked() }
+        binding.headerView.initView(offerItem, isColorsLight) { controller.onFavoriteChecked() }
         binding.longDescription.text = offerItem.longDescription
+
+        binding.offerName.setTextColor(if (isColorsLight) Color.BLACK else Color.WHITE)
 
         binding.gradientBackground.background = GradientDrawable(
             firstColor = offerItem.backgroundFirstColor,

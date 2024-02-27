@@ -1,6 +1,8 @@
 package com.touchin.prosto.view
 
 import android.content.Context
+import android.content.res.ColorStateList
+import android.graphics.Color
 import android.util.AttributeSet
 import android.view.LayoutInflater
 import androidx.constraintlayout.widget.ConstraintLayout
@@ -24,7 +26,7 @@ class OfferHeaderView @JvmOverloads constructor(
         binding = ViewOfferHeaderBinding.inflate(LayoutInflater.from(context), this)
     }
 
-    fun initView(offerUi: OfferUi, onFavoriteChecked: (OfferUi) -> Unit) = with(binding) {
+    fun initView(offerUi: OfferUi, isColorsLight: Boolean, onFavoriteChecked: (OfferUi) -> Unit) = with(binding) {
         companyName.text = offerUi.companyName
         companyShortDescription.setTextOrMakeGoneIfBlank(offerUi.companyShortDescription)
 
@@ -37,5 +39,10 @@ class OfferHeaderView @JvmOverloads constructor(
             errorId = R.drawable.ic_offer_default_company_logo,
             placeholderId = R.drawable.ic_offer_default_company_logo,
         )
+
+        val color = if (isColorsLight) Color.BLACK else Color.WHITE
+        companyName.setTextColor(color)
+        companyShortDescription.setTextColor(color)
+        favoriteButton.imageTintList = ColorStateList.valueOf(color)
     }
 }
