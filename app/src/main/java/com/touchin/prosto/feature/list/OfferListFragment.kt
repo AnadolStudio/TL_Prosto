@@ -10,6 +10,7 @@ import com.touchin.prosto.feature.model.OfferUi
 import com.touchin.prosto.util.postUpdate
 import com.xwray.groupie.GroupieAdapter
 import com.xwray.groupie.Section
+import okhttp3.internal.notify
 
 class OfferListFragment : BaseContentFragment<OfferListState, OfferListViewModel, OfferListController>(
     R.layout.fragment_offer_list

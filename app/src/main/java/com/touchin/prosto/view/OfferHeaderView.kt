@@ -8,9 +8,12 @@ import com.anadolstudio.core.util.common.throttleClick
 import com.anadolstudio.core.util.common_extention.getCompatDrawable
 import com.anadolstudio.core.util.common_extention.setImageFromUrl
 import com.anadolstudio.core.util.common_extention.setTextOrMakeGoneIfBlank
+import com.touchin.data.repository.common.PreferencesStorage
 import com.touchin.prosto.R
 import com.touchin.prosto.databinding.ViewOfferHeaderBinding
 import com.touchin.prosto.feature.model.OfferUi
+
+import javax.inject.Inject
 
 class OfferHeaderView @JvmOverloads constructor(
     context: Context,
@@ -30,7 +33,7 @@ class OfferHeaderView @JvmOverloads constructor(
 
         val favouriteIcon = if (offerUi.isFavorite) R.drawable.ic_favorite_checked else R.drawable.ic_favorite_unchecked
         favoriteButton.setImageDrawable(root.context.getCompatDrawable(favouriteIcon))
-        favoriteButton.throttleClick { onFavoriteChecked.invoke(offerUi) }
+        favoriteButton.throttleClick {  onFavoriteChecked.invoke(offerUi) }
 
         companyLogo.setImageFromUrl(
             url = offerUi.companyImageUrl,

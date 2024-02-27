@@ -9,11 +9,16 @@ class PreferencesStorage(private val preferences: Preferences) {
 
     private companion object {
         const val NIGHT_MODE = "NIGHT_MODE"
+        const val FAVORITES = "FAVORITES"
     }
 
     var nightMode: Int
         set(value) = preferences.modify { putInt(NIGHT_MODE, value) }
         get() = preferences.getInt(NIGHT_MODE, AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM)
+
+    var favorites: Set<String>
+        set(fav) = preferences.modify { putStringSet(FAVORITES,fav)}
+        get() = preferences.getStringSet(FAVORITES, emptySet()).orEmpty()
 
     private inline fun Preferences.modify(
         commit: Boolean = false,

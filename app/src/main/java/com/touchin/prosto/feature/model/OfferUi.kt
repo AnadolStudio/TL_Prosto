@@ -17,7 +17,7 @@ data class OfferUi(
     val isActive: Boolean,
     val backgroundFirstColor: Int,
     val backgroundSecondColor: Int,
-    val isFavorite: Boolean = false,
+    var isFavorite: Boolean = false,
 ) : Parcelable
 
 fun OfferDomain.toUi(isFavorite: Boolean = false): OfferUi = OfferUi(

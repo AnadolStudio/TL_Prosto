@@ -15,7 +15,7 @@
         android:padding="12dp"
         android:src="@drawable/ic_favorite_unchecked"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@id/company_logo" />
+        app:layout_constraintTop_toTopOf="@id/company_logo"/>
 
     <LinearLayout
         android:layout_width="0dp"

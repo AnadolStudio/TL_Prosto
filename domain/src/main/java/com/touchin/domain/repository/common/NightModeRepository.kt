@@ -6,6 +6,7 @@ interface NightModeRepository {
 
     var nightMode: Int
 
+
     fun toggleNightMode()
 
     fun observeNightModeChanges(): Observable<Int>
