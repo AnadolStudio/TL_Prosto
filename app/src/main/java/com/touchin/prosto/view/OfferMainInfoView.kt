@@ -5,7 +5,6 @@ import android.util.AttributeSet
 import android.view.LayoutInflater
 import androidx.constraintlayout.widget.ConstraintLayout
 import com.anadolstudio.core.util.common.dpToPx
-import com.anadolstudio.core.util.common_extention.setMargins
 import com.anadolstudio.core.util.common_extention.setTextOrMakeGoneIfBlank
 import com.touchin.prosto.databinding.ViewOfferMainInfoBinding
 import com.touchin.prosto.feature.model.OfferUi
@@ -27,8 +26,15 @@ class OfferMainInfoView @JvmOverloads constructor(
         minHeight = MIN_HEIGHT
     }
 
-    fun initView(offerUi: OfferUi, ) = with(binding) {
+    fun initView(offerUi: OfferUi) = with(binding) {
         title.setTextOrMakeGoneIfBlank(offerUi.reward)
         description.setTextOrMakeGoneIfBlank(offerUi.description)
+        if (offerUi.isActive) {
+            title.alpha = 1f
+            description.alpha = 1f
+        } else {
+            title.alpha = 0.5f
+            description.alpha = 0.5f
+        }
     }
 }

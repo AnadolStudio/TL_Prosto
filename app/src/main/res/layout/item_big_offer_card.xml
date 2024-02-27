@@ -1,26 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.cardview.widget.CardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:foreground="?attr/selectableItemBackground"
-    app:cardCornerRadius="28dp"
     android:layout_marginHorizontal="16dp"
     android:layout_marginVertical="8dp"
+    android:foreground="?attr/selectableItemBackground"
+    app:cardCornerRadius="28dp"
     app:cardElevation="4dp">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/container"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
-
-        <com.touchin.prosto.view.OfferHeaderView
-            android:id="@+id/header_view"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintStart_toStartOf="@id/guideline_start"
-            app:layout_constraintEnd_toEndOf="@+id/guideline_end"/>
 
         <androidx.constraintlayout.widget.Guideline
             android:id="@+id/guideline_start"
@@ -36,14 +29,22 @@
             android:orientation="vertical"
             app:layout_constraintGuide_end="16dp" />
 
+        <com.touchin.prosto.view.OfferHeaderView
+            android:id="@+id/header_view"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            app:layout_constraintEnd_toEndOf="@+id/guideline_end"
+            app:layout_constraintStart_toStartOf="@id/guideline_start"
+            app:layout_constraintTop_toTopOf="parent" />
+
         <com.touchin.prosto.view.OfferMainInfoView
             android:id="@+id/main_info_view"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_marginTop="12dp"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/header_view" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>

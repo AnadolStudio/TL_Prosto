@@ -4,9 +4,9 @@ import androidx.navigation.fragment.navArgs
 import com.anadolstudio.core.viewbinding.viewBinding
 import com.touchin.prosto.R
 import com.touchin.prosto.base.bottom.BaseContentBottom
-import com.touchin.prosto.base.fragment.BaseContentFragment
 import com.touchin.prosto.databinding.FragmentOfferDetailBinding
 import com.touchin.prosto.di.viewmodel.assistedViewModel
+import com.touchin.prosto.util.GradientDrawable
 
 @Suppress("TooManyFunctions")
 class OfferDetailFragment : BaseContentBottom<OfferDetailState, OfferDetailViewModel, OfferDetailController>(
@@ -23,7 +23,15 @@ class OfferDetailFragment : BaseContentBottom<OfferDetailState, OfferDetailViewM
     }
 
     override fun render(state: OfferDetailState, controller: OfferDetailController) {
-        binding.mainInfo.initView(state.offer)
-        binding.offerName.setText(R.string.app_name) // TODO
+        with(binding) {
+            infoContainer.background = GradientDrawable(
+                state.offer.backgroundFirstColor,
+                state.offer.backgroundSecondColor
+            )
+            mainInfo.initView(state.offer)
+            headerView.initView(state.offer) { _ -> }
+            offerName.text = state.offer.name
+            offerLongDescription.text = state.offer.longDescription
+        }
     }
 }
