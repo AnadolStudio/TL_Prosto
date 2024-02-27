@@ -1,9 +1,11 @@
 package com.touchin.prosto.view
 
 import android.content.Context
+import android.content.res.ColorStateList
 import android.util.AttributeSet
 import android.view.LayoutInflater
 import android.widget.FrameLayout
+import androidx.core.content.ContextCompat
 import androidx.core.content.withStyledAttributes
 import com.touchin.prosto.R
 import com.touchin.prosto.databinding.ViewBottomTopLineBinding
