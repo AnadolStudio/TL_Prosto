@@ -4,4 +4,5 @@ import com.anadolstudio.core.viewmodel.BaseController
 
 interface OfferDetailController : BaseController {
     fun onRetryClicked()
+    fun onFavoriteChecked()
 }

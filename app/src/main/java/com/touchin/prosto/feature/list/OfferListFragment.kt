@@ -5,6 +5,7 @@ import com.anadolstudio.core.viewbinding.viewBinding
 import com.touchin.prosto.R
 import com.touchin.prosto.base.fragment.BaseContentFragment
 import com.touchin.prosto.databinding.FragmentOfferListBinding
+import com.touchin.prosto.feature.detail.OfferDetailFragment
 import com.touchin.prosto.feature.list.recycler.BigOfferCardHolder
 import com.touchin.prosto.feature.model.OfferUi
 import com.touchin.prosto.util.postUpdate
@@ -21,6 +22,18 @@ class OfferListFragment : BaseContentFragment<OfferListState, OfferListViewModel
     override fun createViewModelLazy() = viewModels<OfferListViewModel> { viewModelFactory }
 
     override fun initView(controller: OfferListController) = with(binding) {
+        parentFragmentManager.setFragmentResultListener(
+            OfferDetailFragment.TAG,
+            this@OfferListFragment
+        ) { requestKey: String, data ->
+            val offer = data.getParcelable(getString(R.string.navigation_offer)) as? OfferUi
+
+            when (requestKey) {
+                OfferDetailFragment.TAG -> offer?.let(controller::onFavoriteChecked)
+                else -> Unit
+            }
+        }
+
         toolbar.setBackClickListener { controller.onBackClicked() }
         favoriteButton.setOnClickListener { controller.onFavoriteFilterClicked() }
         initRecycler()

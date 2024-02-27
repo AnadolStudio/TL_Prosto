@@ -29,6 +29,11 @@ class OfferDetailViewModel @AssistedInject constructor(
 
     override fun onBackClicked() = _navigationEvent.navigateUp()
 
+    override fun onFavoriteChecked() {
+        showEvent(OfferDetailEvent.FavoriteResult(state.offer))
+        updateState { copy(offer = offer.copy(isFavorite = !offer.isFavorite)) }
+    }
+
     @AssistedFactory
     interface Factory {
         fun create(offerUi: OfferUi): OfferDetailViewModel
