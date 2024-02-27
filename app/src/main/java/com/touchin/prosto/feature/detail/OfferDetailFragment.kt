@@ -29,5 +29,10 @@ class OfferDetailFragment : BaseContentBottom<OfferDetailState, OfferDetailViewM
         binding.offerName.text = offerItem.name
         binding.headerView.initView(offerItem) {}
         binding.longDescription.text = offerItem.longDescription
+
+        binding.gradientBackground.background = GradientDrawable(
+            firstColor = offerItem.backgroundFirstColor,
+            secondColor = offerItem.backgroundSecondColor,
+        )
     }
 }
