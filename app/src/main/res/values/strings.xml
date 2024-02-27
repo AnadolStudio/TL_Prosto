@@ -6,6 +6,8 @@
     <string name="common_email">Email</string>
     <string name="common_subject">Тема</string>
     <string name="common_body">Тело письма</string>
+    <string name="common_error">Не удалось загрузить данные.\nПовторите позже</string>
+    <string name="common_repeat">Повторить</string>
     <string name="common_email_error">Некорректный email</string>
     <string name="common_invalid_text_error">Некорректные символы</string>
     <string name="common_send">Отправить</string>

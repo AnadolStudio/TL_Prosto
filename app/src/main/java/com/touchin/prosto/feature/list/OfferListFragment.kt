@@ -1,8 +1,13 @@
 package com.touchin.prosto.feature.list
 
+import android.view.animation.AccelerateDecelerateInterpolator
+import android.view.animation.AlphaAnimation
+import android.view.animation.Animation
 import androidx.core.view.isVisible
 import androidx.fragment.app.viewModels
+import com.anadolstudio.core.presentation.fragment.state_util.ViewStateDelegate
 import com.anadolstudio.core.util.common_extention.getCompatDrawable
+import com.anadolstudio.core.view.animation.AnimateUtil.scaleAnimationOnClick
 import com.anadolstudio.core.viewbinding.viewBinding
 import com.touchin.prosto.R
 import com.touchin.prosto.base.fragment.BaseContentFragment
@@ -20,6 +25,13 @@ class OfferListFragment : BaseContentFragment<OfferListState, OfferListViewModel
 
     private val binding by viewBinding { FragmentOfferListBinding.bind(it) }
     private val offersSection = Section()
+    private val viewDelegate by lazy {
+        ViewStateDelegate(
+            contentView = binding.recycler,
+            loadingView = binding.skeletons.root,
+            errorView = binding.errorView,
+        )
+    }
 
     override fun createViewModelLazy() = viewModels<OfferListViewModel> { viewModelFactory }
 
@@ -38,6 +50,7 @@ class OfferListFragment : BaseContentFragment<OfferListState, OfferListViewModel
 
         toolbar.setBackClickListener { controller.onBackClicked() }
         favoriteButton.setOnClickListener { controller.onFavoriteFilterClicked() }
+        errorButton.scaleAnimationOnClick { controller.onRetryClicked() }
         initRecycler()
     }
 
@@ -49,11 +62,28 @@ class OfferListFragment : BaseContentFragment<OfferListState, OfferListViewModel
         }
     }
 
-    override fun render(state: OfferListState, controller: OfferListController) {
-        val favouriteIcon = if (state.isFilterByFavorite) R.drawable.ic_favorite_checked else R.drawable.ic_favorite_unchecked
+    override fun render(state: OfferListState, controller: OfferListController) = with(state) {
+        when {
+            loadingState.isError -> viewDelegate.showError()
+            loadingState.isLoading -> showLoading()
+            else -> viewDelegate.showContent()
+        }
+
+        val favouriteIcon = if (isFilterByFavorite) R.drawable.ic_favorite_checked else R.drawable.ic_favorite_unchecked
         binding.favoriteButton.setDrawable(requireContext().getCompatDrawable(favouriteIcon))
-        binding.favoriteButton.isVisible = state.isFilterButtonVisible
-        offersSection.postUpdate(binding.recycler, state.filteredOffersList.map { createOfferHolder(it) })
+        binding.favoriteButton.isVisible = isFilterButtonVisible
+        offersSection.postUpdate(binding.recycler, filteredOffersList.map { createOfferHolder(it) })
+    }
+
+    private fun showLoading() {
+        viewDelegate.showLoading()
+        val animation = AlphaAnimation(1f, 0f).apply {
+            duration = 1000
+            interpolator = AccelerateDecelerateInterpolator()
+            repeatCount = Animation.INFINITE
+            repeatMode = Animation.REVERSE
+        }
+        binding.skeletons.root.startAnimation(animation)
     }
 
     protected fun createOfferHolder(offer: OfferUi): BigOfferCardHolder = BigOfferCardHolder(
