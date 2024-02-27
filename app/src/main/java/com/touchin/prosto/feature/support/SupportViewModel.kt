@@ -13,24 +13,37 @@ class SupportViewModel @Inject constructor(
     initState = SupportState()
 ), SupportController {
 
+    private companion object {
+        val LATIN_REGEX = "[a-zA-z]".toRegex()
+    }
+
     override fun onSendClicked() {
         if (hasErrors()) return
 
         sendEmail(
             context = context,
-            subject = "subject", // TODO необходимо изменить в рамках задачи
+            subject = state.subjectText,
             email = state.emailText,
-            body = "body" // TODO необходимо изменить в рамках задачи
+            body = state.bodyText
         )
     }
 
     override fun onEmailChanged(text: String) = updateState { copy(emailText = text, hasEmailError = false) }
 
+    override fun onSubjectChanged(text: String) = updateState { copy(subjectText = text, hasSubjectError = false) }
+
+    override fun onBodyChanged(text: String) = updateState { copy(bodyText = text, hasBodyError = false) }
+
     private fun hasErrors(): Boolean {
         val hasEmailError = !EmailUtil.EMAIL_PATTERN_REGEX.matches(state.emailText)
-        updateState { copy(hasEmailError = hasEmailError) }
+        val hasSubjectError = LATIN_REGEX.find(state.subjectText) != null
+        val hasBodyError = LATIN_REGEX.find(state.bodyText) != null
 
-        return listOf(hasEmailError).any { hasError -> hasError }
+        updateState {
+            copy(hasEmailError = hasEmailError, hasSubjectError = hasSubjectError, hasBodyError = hasBodyError)
+        }
+
+        return listOf(hasEmailError, hasSubjectError, hasBodyError).any { hasError -> hasError }
     }
 
     override fun onBackClicked() = _navigationEvent.navigateUp()
