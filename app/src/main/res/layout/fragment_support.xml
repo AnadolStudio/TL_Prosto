@@ -18,6 +18,7 @@
         android:fitsSystemWindows="true"
         app:title="@string/common_support"
         android:elevation="4dp"
+        app:tint="@color/colorAccent"
         app:back_icon="@drawable/ic_arrow_back"
         app:layout_constraintTop_toBottomOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -46,8 +47,40 @@
         app:layout_constraintTop_toBottomOf="@id/toolbar"
         android:layout_marginTop="64dp"
         android:hint="@string/common_email"
-        android:inputType="textEmailAddress"
-        tools:text="text"/>
+        android:inputType="textEmailAddress"/>
+
+    <EditText
+        android:id="@+id/subject_input"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:textAppearance="@style/Caption16"
+        app:layout_constraintStart_toStartOf="@id/start_guideline"
+        app:layout_constraintEnd_toEndOf="@id/end_guideline"
+        app:layout_constraintTop_toBottomOf="@id/email_input"
+        android:layout_marginTop="16dp"
+        android:hint="@string/common_subject"
+        android:inputType="textCapSentences"/>
+
+    <FrameLayout
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="@id/start_guideline"
+        app:layout_constraintEnd_toEndOf="@id/end_guideline"
+        app:layout_constraintTop_toBottomOf="@id/subject_input"
+        android:layout_marginTop="16dp"
+        android:paddingHorizontal="4dp"
+        android:background="@drawable/bg_body_input">
+
+        <EditText
+            android:id="@+id/body_input"
+            android:layout_width="match_parent"
+            android:layout_height="204dp"
+            android:gravity="top"
+            android:textAppearance="@style/Caption16"
+            android:hint="@string/common_body"
+            android:inputType="textMultiLine"/>
+
+    </FrameLayout>
 
     <com.touchin.prosto.view.BaseButton
         android:id="@+id/sendButton"

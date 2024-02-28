@@ -7,6 +7,7 @@ import com.touchin.prosto.base.recycler.PayloadableViewHolder
 import com.touchin.prosto.databinding.ItemBigOfferCardBinding
 import com.touchin.prosto.feature.model.OfferUi
 import com.touchin.prosto.util.GradientDrawable
+import com.touchin.prosto.util.isColorsLight
 
 class BigOfferCardHolder(
     private val offer: OfferUi,
@@ -20,9 +21,9 @@ class BigOfferCardHolder(
         val offerItem = item.offer
         with(binding) {
             root.throttleClick { onOfferClick(offerItem) }
-
-            headerView.initView(offerItem, onFavoriteChecked)
-            mainInfoView.initView(offerItem)
+            val isColorsLight = isColorsLight(offerItem.backgroundFirstColor, offerItem.backgroundSecondColor)
+            headerView.initView(offerItem, isColorsLight, onFavoriteChecked)
+            mainInfoView.initView(offerItem, isColorsLight)
 
             container.background = GradientDrawable(
                 firstColor = offerItem.backgroundFirstColor,
