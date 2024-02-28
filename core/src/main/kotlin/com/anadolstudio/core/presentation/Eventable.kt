@@ -60,7 +60,6 @@ interface Eventable {
 
         override fun showMessageSnackbar(event: SingleMessageSnack) {
             val length = when (event) {
-                is SingleMessageSnack.Long -> Snackbar.LENGTH_LONG
                 is SingleMessageSnack.Short -> Snackbar.LENGTH_SHORT
                 is SingleMessageSnack.Indefinite -> Snackbar.LENGTH_INDEFINITE
             }

@@ -2,6 +2,7 @@ package com.touchin.prosto.feature.detail
 
 import androidx.navigation.fragment.navArgs
 import com.anadolstudio.core.viewbinding.viewBinding
+import com.google.android.material.snackbar.Snackbar
 import com.touchin.prosto.R
 import com.touchin.prosto.base.bottom.BaseContentBottom
 import com.touchin.prosto.base.fragment.BaseContentFragment

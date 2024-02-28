@@ -32,11 +32,5 @@ class OfferMainInfoView @JvmOverloads constructor(
         val alpha = if (offerUi.isActive) 1.0f else 0.5f
         title.alpha = alpha
         description.alpha = alpha
-        if (!offerUi.isActive) {
-            showSnackbar(context.getString(R.string.inactive_action_message))
-        }
-    }
-    private fun showSnackbar(message: String) {
-        Snackbar.make(binding.root, message, Snackbar.LENGTH_LONG).show()
     }
 }

@@ -1,5 +1,7 @@
 package com.touchin.prosto.feature.detail
 
+import com.anadolstudio.core.presentation.event.SingleMessageSnack
+import com.touchin.prosto.R
 import com.touchin.prosto.base.viewmodel.BaseContentViewModel
 import com.touchin.prosto.base.viewmodel.navigateUp
 import com.touchin.prosto.feature.model.OfferUi
@@ -16,12 +18,18 @@ class OfferDetailViewModel @AssistedInject constructor(
     )
 ), OfferDetailController {
 
+    init {
+        if (!state.offer.isActive) {
+            showEvent(SingleMessageSnack.Short("Эта акция больше неактивна"))
+        }
+    }
+
     override fun onRetryClicked() = showTodo()
 
     override fun onBackClicked() = _navigationEvent.navigateUp()
 
     override fun onFavoriteChecked(offerUi: OfferUi) {
-
+        showTodo()
     }
 
     @AssistedFactory

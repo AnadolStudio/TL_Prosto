@@ -3,6 +3,7 @@ package com.touchin.prosto.feature.list
 import android.content.Context
 import androidx.core.os.bundleOf
 import androidx.lifecycle.viewModelScope
+import com.anadolstudio.core.viewmodel.lce.LceState
 import com.anadolstudio.core.viewmodel.lce.lceFlow
 import com.anadolstudio.core.viewmodel.lce.mapLceContent
 import com.anadolstudio.core.viewmodel.lce.onEachContent
@@ -36,6 +37,10 @@ class OfferListViewModel @Inject constructor(
             .onEachContent { offers -> updateState { copy(offersList = offers) } }
             .onEachError { showError(it) }
             .launchIn(viewModelScope)
+    }
+
+    override fun retryLoadOffers() {
+        loadOffers() // Повторная загрузка данных
     }
 
     override fun onBackClicked() = _navigationEvent.navigateUp()
