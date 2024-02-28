@@ -7,4 +7,6 @@ interface OfferListController : BaseController {
     fun onOfferClicked(offerUi: OfferUi)
     fun onFavoriteChecked(offerUi: OfferUi)
     fun onFavoriteFilterClicked()
+
+    fun onReloadedClicked()
 }

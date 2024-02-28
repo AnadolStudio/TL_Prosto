@@ -37,4 +37,33 @@
 
     </com.anadolstudio.core.view.toolbar.BaseToolbar>
 
+    <LinearLayout
+        android:id="@+id/error_loaded_layout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:orientation="vertical"
+        android:gravity="center">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            style="@style/Caption14"
+            android:text="@string/not_loaded_error" />
+
+        <Button
+            android:id="@+id/reloaded_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            style="@style/Caption14"
+            android:text="@string/reloaded_button"
+            />
+
+    </LinearLayout>
+
 </androidx.constraintlayout.widget.ConstraintLayout>

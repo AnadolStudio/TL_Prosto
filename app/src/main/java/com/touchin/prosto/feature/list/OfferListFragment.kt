@@ -3,6 +3,7 @@ package com.touchin.prosto.feature.list
 import android.view.View
 import androidx.core.view.isVisible
 import androidx.fragment.app.viewModels
+import com.anadolstudio.core.presentation.fragment.state_util.ViewStateDelegate
 import com.anadolstudio.core.viewbinding.viewBinding
 import com.anadolstudio.core.viewmodel.lce.LceState
 import com.touchin.prosto.R
@@ -21,12 +22,20 @@ class OfferListFragment : BaseContentFragment<OfferListState, OfferListViewModel
 
     private val binding by viewBinding { FragmentOfferListBinding.bind(it) }
     private val offersSection = Section()
+    private val viewStateDelegate by lazy {
+        ViewStateDelegate(
+            contentView = binding.recycler,
+            loadingView = null,//todo
+            errorView = binding.errorLoadedLayout
+        )
+    }
 
     override fun createViewModelLazy() = viewModels<OfferListViewModel> { viewModelFactory }
 
     override fun initView(controller: OfferListController) = with(binding) {
         toolbar.setBackClickListener { controller.onBackClicked() }
         favoriteButton.setOnClickListener { controller.onFavoriteFilterClicked() }
+        reloadedButton.setOnClickListener { controller.onReloadedClicked() }
         initRecycler()
     }
 
@@ -39,8 +48,22 @@ class OfferListFragment : BaseContentFragment<OfferListState, OfferListViewModel
     }
 
     override fun render(state: OfferListState, controller: OfferListController) {
-        offersSection.postUpdate(binding.recycler, state.offersFilteredList.map { createOfferHolder(it) })
-        binding.favoriteButton.isVisible = state.loadingState is LceState.Content && state.isFavoriteFilterVisibility
+        when(state.loadingState) {
+            is LceState.Content -> {
+                offersSection.postUpdate(binding.recycler, state.offersFilteredList.map { createOfferHolder(it) })
+                binding.favoriteButton.isVisible = state.isFavoriteFilterVisibility
+                viewStateDelegate.showContent()
+            }
+            LceState.Loading -> {
+                //
+                viewStateDelegate.showLoading()
+
+            }
+            is LceState.Error -> {
+                viewStateDelegate.showError()
+            }
+            else -> {}
+        }
     }
 
     protected fun createOfferHolder(offer: OfferUi): BigOfferCardHolder = BigOfferCardHolder(

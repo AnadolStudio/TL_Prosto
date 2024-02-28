@@ -84,4 +84,6 @@ class OfferListViewModel @Inject constructor(
     }
 
     override fun onFavoriteFilterClicked() = updateState { copy(isFavoriteFilter = !isFavoriteFilter) }
+
+    override fun onReloadedClicked() = loadOffers()
 }
