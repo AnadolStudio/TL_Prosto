@@ -1,7 +1,10 @@
 package com.touchin.prosto.feature.list
 
+import android.view.View
+import androidx.core.view.isVisible
 import androidx.fragment.app.viewModels
 import com.anadolstudio.core.viewbinding.viewBinding
+import com.anadolstudio.core.viewmodel.lce.LceState
 import com.touchin.prosto.R
 import com.touchin.prosto.base.fragment.BaseContentFragment
 import com.touchin.prosto.databinding.FragmentOfferListBinding
@@ -10,6 +13,7 @@ import com.touchin.prosto.feature.model.OfferUi
 import com.touchin.prosto.util.postUpdate
 import com.xwray.groupie.GroupieAdapter
 import com.xwray.groupie.Section
+import kotlinx.coroutines.flow.onEach
 
 class OfferListFragment : BaseContentFragment<OfferListState, OfferListViewModel, OfferListController>(
     R.layout.fragment_offer_list
@@ -35,7 +39,8 @@ class OfferListFragment : BaseContentFragment<OfferListState, OfferListViewModel
     }
 
     override fun render(state: OfferListState, controller: OfferListController) {
-        offersSection.postUpdate(binding.recycler, state.offersList.map { createOfferHolder(it) })
+        offersSection.postUpdate(binding.recycler, state.offersFilteredList.map { createOfferHolder(it) })
+        binding.favoriteButton.isVisible = state.loadingState is LceState.Content && state.isFavoriteFilterVisibility
     }
 
     protected fun createOfferHolder(offer: OfferUi): BigOfferCardHolder = BigOfferCardHolder(

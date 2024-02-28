@@ -3,6 +3,7 @@ package com.touchin.prosto.feature.list
 import android.content.Context
 import androidx.core.os.bundleOf
 import androidx.lifecycle.viewModelScope
+import com.anadolstudio.core.viewmodel.lce.LceState
 import com.anadolstudio.core.viewmodel.lce.lceFlow
 import com.anadolstudio.core.viewmodel.lce.mapLceContent
 import com.anadolstudio.core.viewmodel.lce.onEachContent
@@ -29,6 +30,8 @@ class OfferListViewModel @Inject constructor(
 
     init {
         loadOffers()
+        if (favoriteDiscounts.isEmpty()) updateState { copy(isFavoriteFilterVisibility = false) }
+        else updateState { copy(isFavoriteFilterVisibility = true) }
     }
 
     private var favoriteDiscounts: Set<String>
@@ -73,8 +76,12 @@ class OfferListViewModel @Inject constructor(
             }
         }
         favoriteDiscounts = mutableFavoriteDiscounts.toSet()
+
+        if (favoriteDiscounts.isEmpty()) updateState { copy(isFavoriteFilterVisibility = false) }
+        else updateState { copy(isFavoriteFilterVisibility = true) }
+
         updateState { copy(offersList = offers) }
     }
 
-    override fun onFavoriteFilterClicked() = showTodo()
+    override fun onFavoriteFilterClicked() = updateState { copy(isFavoriteFilter = !isFavoriteFilter) }
 }
