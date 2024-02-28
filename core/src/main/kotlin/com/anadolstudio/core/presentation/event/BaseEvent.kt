@@ -12,6 +12,7 @@ sealed class SingleMessageToast(text: String) : SingleMessage(text) {
 }
 
 sealed class SingleMessageSnack(text: String) : SingleMessage(text) {
+    class Long(text: String) : SingleMessageSnack(text)
     class Short(text: String) : SingleMessageSnack(text)
     class Indefinite(text: String) : SingleMessageSnack(text)
 }
